@@ -32,7 +32,7 @@ int main() {
     // std::cout << s << '\n';
     // for (int i = 1; i <= len; i++) std::cout << opp[i] << ' ';
     // std::cout << '\n';
-    memset(s, 0, sizeof(int) * (len + 1));
+    memset(s, 0, sizeof(int) * MAXN);
     for (int i = 1; i <= len; i++) s[i] = s[i - 1] + (data[i].type ? -1 : 1); 
     // printf("%d%c", s[i], i == len ? '\n' : ' ');
     // 主算法：从小到大区间DP
@@ -73,18 +73,14 @@ int main() {
                             }
                         }
                     } else { // 如果是一个个独立的小块
-                        for (int line = i; line < i + bias; line++) {
-                            if (data[line].type == 1 && data[line + 1].type == 0) {//  )( 的情况
-                                if (s[line] - s[i - 1] != 0) continue;
-                                for (int m = 0; m < 9; m++) {
-                                    for (int n = 0; n < 9; n++) {
-                                        bool ok = (n / 3) != (n % 3) || (n / 3 == 0) || (n % 3 == 0); // 只需中间情况不同色即可
-                                        if (ok) a[i][i + bias][m / 3][m % 3] += (long long)(a[i][line][m / 3][n / 3] * a[line + 1][i + bias][n % 3][m % 3]) % mod, 
-                                        a[i][i + bias][m / 3][m % 3] %= mod;
-                                    }
-                                }
+                        int line = opp[i];
+                        for (int m = 0; m < 9; m++) {
+                            for (int n = 0; n < 9; n++) {
+                                bool ok = (n / 3) != (n % 3) || (n / 3 == 0) || (n % 3 == 0); // 只需中间情况不同色即可
+                                if (ok) a[i][i + bias][m / 3][m % 3] += (long long)(a[i][line][m / 3][n / 3] * a[line + 1][i + bias][n % 3][m % 3]) % mod, 
+                                a[i][i + bias][m / 3][m % 3] %= mod;
                             }
-                        }
+                        }   
                     }
                 }
             }
