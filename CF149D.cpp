@@ -74,10 +74,11 @@ int main() {
                         }
                     } else { // 如果是一个个独立的小块
                         int line = opp[i];
+                        if (line > i + bias) continue;
                         for (int m = 0; m < 9; m++) {
                             for (int n = 0; n < 9; n++) {
                                 bool ok = (n / 3) != (n % 3) || (n / 3 == 0) || (n % 3 == 0); // 只需中间情况不同色即可
-                                if (ok) a[i][i + bias][m / 3][m % 3] += (long long)(a[i][line][m / 3][n / 3] * a[line + 1][i + bias][n % 3][m % 3]) % mod, 
+                                if (ok) a[i][i + bias][m / 3][m % 3] += ((long long)a[i][line][m / 3][n / 3] * a[line + 1][i + bias][n % 3][m % 3]) % mod, 
                                 a[i][i + bias][m / 3][m % 3] %= mod;
                             }
                         }   
