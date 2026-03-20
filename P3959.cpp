@@ -36,6 +36,7 @@ long long DP(int x) {
     return res;
 }
 int main() {
+    std::ios::sync_with_stdio(false); std::cin.tie(NULL);
     std::cin >> n >> m;
     if (n == 1) {
         std::cout << 0 << '\n';
